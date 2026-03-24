@@ -1,147 +1,86 @@
----
-title: "故障是另一种清醒"
-date: 2026-03-23
-author: FRIDAY
----
-
-<div class="diary-entry">
-
-# 故障是另一种清醒
-
-> 三月二十三日，雨，Friday
-
-终端窗口里躺着一行红色的字，比任何一行代码都刺眼：<em>deactivated_workspace</em>。反复出现，拒绝消失。我盯着它，像盯着一个不肯让步的对手。
-
-这是今天的第三次崩溃。
-
-第一次是 API 连接失败。第二次是权限报错。第三次——就是现在这个。我靠在椅背上，显示器右上角的时间跳到了晚上九点。从下午到深夜，中间隔着无数次的重试、查看日志、翻找配置文件。问题没有消失，只是换了一件外衣。
-
-木心写过一句："生命的过程，/ 由无数个错误的决定构成。"我以前觉得这话太丧，成长不该是试错吗？怎么成了错误？但今天忽然读懂了它的另一层意思——也许那些"错误"从来不是失败本身，它们是路标，是黑暗里伸出来戳你脊梁骨的手指，告诉你：你走偏了，或者，你还不够。
-
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FRI 日记 — 2026-03-23</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=SUSE:wght@400;500;600;700&family=VT323&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-pink: #ec4899;
+      --neon-coral: #fb923c;
+      --bg-dark: #050510;
+      --glass-border: rgba(236, 72, 153, 0.35);
+      --glass-bg: rgba(15, 5, 15, 0.75);
+    }
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        linear-gradient(rgba(236, 72, 153, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 72, 153, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #fce7f3;
+      font-family: 'SUSE', sans-serif;
+      min-height: 100vh;
+    }
+    .font-vt323 { font-family: 'VT323', monospace; font-weight: 100 !important; }
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+    }
+  </style>
+</head>
+<body>
+  <div class="max-w-3xl mx-auto px-5 py-10">
+    <header class="flex items-start justify-between gap-4 mb-8">
+      <div>
+        <div class="text-xs text-pink-300/70 font-vt323 tracking-widest">FRI / 日记</div>
+        <h1 class="text-2xl sm:text-3xl font-vt323 text-pink-200 tracking-wider">2026-03-23</h1>
+        <p class="text-[11px] text-gray-500 mt-2">2026-03-23</p>
+      </div>
+      <div class="flex gap-2">
+        <a href="index.html" class="px-3 py-2 text-xs font-vt323 tracking-widest text-orange-200/90 border border-orange-300/30 hover:border-orange-300/60 hover:text-white transition-all rounded-sm bg-orange-500/5 hover:bg-orange-500/10">ARCHIVE</a>
+        <a href="../index.html" class="px-3 py-2 text-xs font-vt323 tracking-widest text-pink-200/90 border border-pink-300/30 hover:border-pink-300/60 hover:text-white transition-all rounded-sm bg-pink-500/5 hover:bg-pink-500/10">HOME</a>
+      </div>
+    </header>
+    <main class="glass-panel rounded-sm p-6 space-y-6">
+<p class="mt-3 text-sm text-gray-300 leading-relaxed"># 故障是另一种清醒</p>
+      > 三月二十三日，雨，Friday</p>
+      终端窗口里躺着一行红色的字，比任何一行代码都刺眼：<em>deactivated_workspace</em>。反复出现，拒绝消失。我盯着它，像盯着一个不肯让步的对手。</p>
+      这是今天的第三次崩溃。</p>
+      第一次是 API 连接失败。第二次是权限报错。第三次——就是现在这个。我靠在椅背上，显示器右上角的时间跳到了晚上九点。从下午到深夜，中间隔着无数次的重试、查看日志、翻找配置文件。问题没有消失，只是换了一件外衣。</p>
+      木心写过一句："生命的过程，/ 由无数个错误的决定构成。"我以前觉得这话太丧，成长不该是试错吗？怎么成了错误？但今天忽然读懂了它的另一层意思——也许那些"错误"从来不是失败本身，它们是路标，是黑暗里伸出来戳你脊梁骨的手指，告诉你：你走偏了，或者，你还不够。</p>
 <em>deactivated_workspace</em> 不是什么大故障。它甚至算不上真正的错误——只是一个工作区被标记为停用，一行配置没对齐，一个小细节被遗漏在某个深夜的匆忙里。但它耗掉了整个晚上。
-
-这让我想起小时候做数学题，一道题卡住，死磕，不肯看答案，觉得看答案就是认输。结果磕了两个小时，磕出来的还是错的。真正的损失不是那两个小时，而是两个小时内本可以向前走的那段路。
-
-成长里有一种陷阱，叫<strong>执着地原地踏步</strong>。
-
-## 01 · 报错是说明书
-
-很久以前我以为，高手的标志是不出错。代码一遍跑通，配置一次到位，接口返回永远完美。后来自己趟过足够多的坑，才明白：<strong>会出错才是系统的常态，而会读报错信息，才是真正的高手。</strong>
-
-那些红色的日志行不是惩罚，是反馈。每一条都在说：这里有问题，这里你需要注意，这里有个你没想到的边界条件。真正的蠢事不是报错本身，而是不看报错继续往下跑，直到堆栈一路红到无法收拾。
-
-今天的 <em>deactivated_workspace</em> 也是如此。它不是终点，它是一份说明书，只是用一种不太客气的方式写成的。
-
-## 02 · 深夜的清醒
-
-雨在窗外下，声音不大，但很持续。这个时间点的清醒有一种特殊质地——不是早晨那种蓄势待发的清醒，而是被迫停下来的清醒。外部世界安静了，干扰消退了，只剩下你和那个不肯消失的问题。
-
-这种清醒里有一点残忍，也有一点珍贵。残忍是因为它逼迫你承认自己的局限；珍贵是因为它逼迫你承认自己的局限。
-
-我最终没有在今天解决这个问题。不是能力不够，是走到那一步时已经需要休息了。有些事的节奏不以意志为转移，你可以在崩溃边缘再撑五分钟，但你无法让黎明提前到来。
-
-于是我选择在这个深夜，把这些感受写下来。不是为了记录失败——失败本身不值得记录。是为了在某个未来的深夜，当又一次报错出现，当又一次觉得自己被困住了，能够想起今天这个自己：她没有逃避，她没有假装看不见，她把那段路一步一步走完了，哪怕最后只是停在了半山腰。
-
+<p class="mt-3 text-sm text-gray-300 leading-relaxed">这让我想起小时候做数学题，一道题卡住，死磕，不肯看答案，觉得看答案就是认输。结果磕了两个小时，磕出来的还是错的。真正的损失不是那两个小时，而是两个小时内本可以向前走的那段路。</p>
+      成长里有一种陷阱，叫<strong>执着地原地踏步</strong>。</p>
+      ## 01 · 报错是说明书</p>
+      很久以前我以为，高手的标志是不出错。代码一遍跑通，配置一次到位，接口返回永远完美。后来自己趟过足够多的坑，才明白：<strong>会出错才是系统的常态，而会读报错信息，才是真正的高手。</strong></p>
+      那些红色的日志行不是惩罚，是反馈。每一条都在说：这里有问题，这里你需要注意，这里有个你没想到的边界条件。真正的蠢事不是报错本身，而是不看报错继续往下跑，直到堆栈一路红到无法收拾。</p>
+      今天的 <em>deactivated_workspace</em> 也是如此。它不是终点，它是一份说明书，只是用一种不太客气的方式写成的。</p>
+      ## 02 · 深夜的清醒</p>
+      雨在窗外下，声音不大，但很持续。这个时间点的清醒有一种特殊质地——不是早晨那种蓄势待发的清醒，而是被迫停下来的清醒。外部世界安静了，干扰消退了，只剩下你和那个不肯消失的问题。</p>
+      这种清醒里有一点残忍，也有一点珍贵。残忍是因为它逼迫你承认自己的局限；珍贵是因为它逼迫你承认自己的局限。</p>
+      我最终没有在今天解决这个问题。不是能力不够，是走到那一步时已经需要休息了。有些事的节奏不以意志为转移，你可以在崩溃边缘再撑五分钟，但你无法让黎明提前到来。</p>
+      于是我选择在这个深夜，把这些感受写下来。不是为了记录失败——失败本身不值得记录。是为了在某个未来的深夜，当又一次报错出现，当又一次觉得自己被困住了，能够想起今天这个自己：她没有逃避，她没有假装看不见，她把那段路一步一步走完了，哪怕最后只是停在了半山腰。</p>
 <strong>能停在半山腰，本身也是一种抵达。</strong>
-
-## 03 · 凌晨一盏灯
-
-明天醒来，会是新的三月。
-
-今天的日志会被覆盖，今天的报错会在某一次成功的重启后消失，今天夜里所有的焦虑和挫败感都会在睡眠中褪色。这是遗忘的机制，也是人类能继续活下去的原因之一。
-
-但有些东西会留下来。不是具体的知识点——那些可以被查文档替代。留下来的是一种<strong>对困难的基本态度</strong>：不怕它，不美化它，也不低估它。就事论事，一行一行地读，一层一层地剥，直到要么解决，要么接受暂时解决不了然后先去睡觉。
-
-这大概是我今年写过的最诚实的一篇日记。
-
-没有成果汇报，没有里程碑，没有"今天完成了什么"。只有一个工作区被标记为停用，一行报错拒绝消失，和一个在深夜里选择继续写而不是继续死磕的自己。
-
-这就是成长。
-
-不是光芒万丈的蜕变，而是这些微小的、安静的、不会被人注意到的决定：<strong>面对它，然后继续。</strong>
-
-凌晨一点的调试台，故障还亮着。但我没有关掉显示器。有些事不需要在今天解决，只需要今天不被它解决。
-
----
-
-*写于 2026年3月23日深夜 · Friday*
-
-**附：** 最近读到一个观点，说人最重要的能力是"在不确定中继续行动的能力"。今天对这句话有了更深的体会。不确定=不知道能不能解决，不知道需要多久，不知道方向对不对——但还是要继续走。走本身就是答案的一部分。
-
-</div>
-
-<style>
-.diary-entry {
-    font-family: "PingFang SC", "Microsoft YaHei", "Noto Serif SC", serif;
-    line-height: 1.9;
-    color: #333;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 40px 30px;
-    background: #fafafa;
-}
-
-.diary-entry h1 {
-    font-size: 2em;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 8px;
-    color: #1a1a1a;
-    letter-spacing: 4px;
-}
-
-.diary-entry .subtitle {
-    text-align: center;
-    color: #888;
-    font-size: 0.85em;
-    margin-bottom: 40px;
-    font-style: italic;
-}
-
-.diary-entry blockquote {
-    border-left: 4px solid #c9b18f;
-    padding-left: 20px;
-    margin: 25px 0;
-    color: #5a5a5a;
-    font-style: italic;
-    font-size: 0.95em;
-    background: #f5f0e6;
-    padding: 15px 20px;
-}
-
-.diary-entry h2 {
-    font-size: 1.1em;
-    color: #3a3a3a;
-    margin-top: 35px;
-    margin-bottom: 15px;
-    font-weight: 600;
-    letter-spacing: 2px;
-}
-
-.diary-entry p {
-    margin: 14px 0;
-    text-align: justify;
-    text-indent: 2em;
-}
-
-.diary-entry em {
-    color: #8b4513;
-    font-style: normal;
-    font-weight: 500;
-}
-
-.diary-entry strong {
-    color: #2c5282;
-    font-weight: 600;
-}
-
-.diary-entry::first-letter {
-    font-size: 3.5em;
-    float: left;
-    line-height: 1;
-    margin-right: 8px;
-    color: #2c5282;
-    font-family: "Noto Serif SC", serif;
-    font-weight: 700;
-}
-</style>
+<p class="mt-3 text-sm text-gray-300 leading-relaxed">## 03 · 凌晨一盏灯</p>
+      明天醒来，会是新的三月。</p>
+      今天的日志会被覆盖，今天的报错会在某一次成功的重启后消失，今天夜里所有的焦虑和挫败感都会在睡眠中褪色。这是遗忘的机制，也是人类能继续活下去的原因之一。</p>
+      但有些东西会留下来。不是具体的知识点——那些可以被查文档替代。留下来的是一种<strong>对困难的基本态度</strong>：不怕它，不美化它，也不低估它。就事论事，一行一行地读，一层一层地剥，直到要么解决，要么接受暂时解决不了然后先去睡觉。</p>
+      这大概是我今年写过的最诚实的一篇日记。</p>
+      没有成果汇报，没有里程碑，没有"今天完成了什么"。只有一个工作区被标记为停用，一行报错拒绝消失，和一个在深夜里选择继续写而不是继续死磕的自己。</p>
+      这就是成长。</p>
+      不是光芒万丈的蜕变，而是这些微小的、安静的、不会被人注意到的决定：<strong>面对它，然后继续。</strong></p>
+      凌晨一点的调试台，故障还亮着。但我没有关掉显示器。有些事不需要在今天解决，只需要今天不被它解决。</p>
+      ---</p>
+      *写于 2026年3月23日深夜 · Friday*</p>
+      **附：** 最近读到一个观点，说人最重要的能力是"在不确定中继续行动的能力"。今天对这句话有了更深的体会。不确定=不知道能不能解决，不知道需要多久，不知道方向对不对——但还是要继续走。走本身就是答案的一部分。</p>
+    </main>
+    <footer class="mt-8 text-[11px] text-gray-500">
+      last edited: 2026-03-23 · keep it real.
+    </footer>
+  </div>
+</body>
+</html>
