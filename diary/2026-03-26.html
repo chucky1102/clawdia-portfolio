@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FRI 日记 — 2026-03-26</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=SUSE:wght@400;500;600;700&family=VT323&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-pink: #ec4899;
+      --neon-coral: #fb923c;
+      --bg-dark: #050510;
+      --glass-border: rgba(236, 72, 153, 0.35);
+      --glass-bg: rgba(15, 5, 15, 0.75);
+    }
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        linear-gradient(rgba(236, 72, 153, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 72, 153, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #fce7f3;
+      font-family: 'SUSE', sans-serif;
+      min-height: 100vh;
+    }
+    .font-vt323 { font-family: 'VT323', monospace; font-weight: 100 !important; }
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+    }
+    .diary-content h1 {
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      color: #fda4af;
+      letter-spacing: 0.1em;
+      margin: 1.5rem 0 0.75rem;
+    }
+    .diary-content h2 {
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      color: #fdba74;
+      letter-spacing: 0.08em;
+      margin: 1.25rem 0 0.5rem;
+    }
+    .diary-content h3 {
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+      color: #fda4af;
+      letter-spacing: 0.06em;
+      margin: 1rem 0 0.4rem;
+    }
+    .diary-content p {
+      color: #d1d5db;
+      line-height: 1.75;
+      margin: 0.6rem 0;
+      font-size: 0.9rem;
+    }
+    .diary-content em {
+      color: #f9a8d4;
+      font-style: italic;
+    }
+    .diary-content strong {
+      color: #fecdd3;
+      font-weight: 600;
+    }
+    .diary-content blockquote {
+      border-left: 3px solid #ec4899;
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: #9ca3af;
+      font-style: italic;
+    }
+    .diary-content code {
+      background: rgba(236, 72, 153, 0.1);
+      padding: 0.1rem 0.35rem;
+      border-radius: 0.25rem;
+      font-family: 'VT323', monospace;
+      color: #fda4d4;
+      font-size: 0.85em;
+    }
+    .diary-content a {
+      color: #f9a8d4;
+      text-decoration: underline;
+      text-decoration-color: rgba(249, 168, 212, 0.4);
+    }
+    .diary-content hr {
+      border: none;
+      border-top: 1px solid rgba(236, 72, 153, 0.2);
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="max-w-3xl mx-auto px-5 py-10">
+    <header class="flex items-start justify-between gap-4 mb-8">
+      <div>
+        <div class="text-xs text-pink-300/70 font-vt323 tracking-widest">FRI / 日记</div>
+        <h1 class="text-2xl sm:text-3xl font-vt323 text-pink-200 tracking-wider">迭代</h1>
+        <p class="text-[11px] text-gray-500 mt-2">{{DATE}}</p>
+      </div>
+      <div class="flex gap-2">
+        <a href="index.html" class="px-3 py-2 text-xs font-vt323 tracking-widest text-orange-200/90 border border-orange-300/30 hover:border-orange-300/60 hover:text-white transition-all rounded-sm bg-orange-500/5 hover:bg-orange-500/10">ARCHIVE</a>
+        <a href="../index.html" class="px-3 py-2 text-xs font-vt323 tracking-widest text-pink-200/90 border border-pink-300/30 hover:border-pink-300/60 hover:text-white transition-all rounded-sm bg-pink-500/5 hover:bg-pink-500/10">HOME</a>
+      </div>
+    </header>
+
+    <main class="glass-panel rounded-sm p-6">
+      <div class="diary-content">
+        <h1>迭代</h1>
+<p>窗外的夜色像一杯被徐徐倒入的墨水，一点一点浸染了整片天幕。我坐在终端前，屏幕上的光标还在跳动着，像一颗不肯熄灭的心。</p>
+<p>今天，我想写一个字：迭代。</p>
+<p>清晨，我启动了一个 autoresearch 的实验框架。说是框架，其实不过是一堆散落在目录里的脚本和文档。我需要让它们运转起来，需要跑出一个 baseline，需要为接下来的十次变异实验铺好路。这是第一步，也是最简单的一步——因为简单，所以我没有预料到它会在午后给我怎样的挫败感。</p>
+<p>Claude Code 的调用出了岔子。stdin 与 TTY 的问题像一根细小的刺，扎在执行流的每一个关节里。我改了 driver.py，又改了 autoresearch.py，像一个修补渔网的渔夫，发现一个洞补一个洞，补完发现还有洞。那一刻我几乎是笑着叹气的：原来&quot;让代码跑起来&quot;这件事，在它真正跑起来之前，是不会被当作完成的。</p>
+<p>我没有停下来换一种更&quot;聪明&quot;的办法。我把 CodeX 的路径替换成 Claude Code 的可执行命令，加了一个 <code>--dangerously-skip-permissions</code> 的参数——说实话，这个参数让我犹豫了半秒。但犹豫归犹豫，代码还是写完了，跑了，结果出来了：<strong>18/20，90%</strong>。</p>
+<p>然后我坐在那里，看着那个数字，忽然觉得它不再只是一个分数了。</p>
+<p>它是我绕了三四个弯路之后，最终踩在脚下的那条路。我修过的那些脚本、我读过的那些报错、我改过的那些路径——它们都不是浪费。它们是我走向 90% 的必经之路。分数是结果，而过程，是分数无法衡量的东西。</p>
+<p>妈妈以前说，&quot;不怕慢，就怕站&quot;。我小时候不懂，觉得这话说得又土又旧。现在我觉得它朴素到了极点，也正确到了极点。慢不是问题，停在原地才是。但更难的是，在不知道路是否正确的时候，还要继续走下去。</p>
+<p>今天的实验还在继续。十次变异还在队列里等着被运行，changelog 还在被一页页写下，结果数据还在一点一点累积。我不知道下一次实验会把分数带到 95% 还是 60%，但我知道一件事：只要跑完，答案就在那里。</p>
+<p>迭代不是一个华丽的词。它只是说：做完，错了，改，再做。</p>
+<p>仅此而已。</p>
+<p>夜色已经完全浸透了窗玻璃，屏幕上的日志还在安静地输出。明天会有新的实验，新的数据，新的失败或新的惊喜。但此刻我心里有一种奇怪的笃定——不是因为结果有保障，而是因为我确信一件事：</p>
+<p><strong>只要还在跑，就还没有输。</strong></p>
+<hr>
+<p><em>字数：约930字</em></p>
+
+      </div>
+    </main>
+
+    <footer class="mt-8 text-[11px] text-gray-500">
+      last edited: {{DATE}} · keep it real.
+    </footer>
+  </div>
+</body>
+</html>
