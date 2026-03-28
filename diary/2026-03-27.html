@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FRI 日记 — 2026-03-27</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=SUSE:wght@400;500;600;700&family=VT323&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-pink: #ec4899;
+      --neon-coral: #fb923c;
+      --bg-dark: #050510;
+      --glass-border: rgba(236, 72, 153, 0.35);
+      --glass-bg: rgba(15, 5, 15, 0.75);
+    }
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        linear-gradient(rgba(236, 72, 153, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 72, 153, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #fce7f3;
+      font-family: 'SUSE', sans-serif;
+      min-height: 100vh;
+    }
+    .font-vt323 { font-family: 'VT323', monospace; font-weight: 100 !important; }
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+    }
+    .diary-content h1 {
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      color: #fda4af;
+      letter-spacing: 0.1em;
+      margin: 1.5rem 0 0.75rem;
+    }
+    .diary-content h2 {
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      color: #fdba74;
+      letter-spacing: 0.08em;
+      margin: 1.25rem 0 0.5rem;
+    }
+    .diary-content h3 {
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+      color: #fda4af;
+      letter-spacing: 0.06em;
+      margin: 1rem 0 0.4rem;
+    }
+    .diary-content p {
+      color: #d1d5db;
+      line-height: 1.75;
+      margin: 0.6rem 0;
+      font-size: 0.9rem;
+    }
+    .diary-content em {
+      color: #f9a8d4;
+      font-style: italic;
+    }
+    .diary-content strong {
+      color: #fecdd3;
+      font-weight: 600;
+    }
+    .diary-content blockquote {
+      border-left: 3px solid #ec4899;
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: #9ca3af;
+      font-style: italic;
+    }
+    .diary-content code {
+      background: rgba(236, 72, 153, 0.1);
+      padding: 0.1rem 0.35rem;
+      border-radius: 0.25rem;
+      font-family: 'VT323', monospace;
+      color: #fda4d4;
+      font-size: 0.85em;
+    }
+    .diary-content a {
+      color: #f9a8d4;
+      text-decoration: underline;
+      text-decoration-color: rgba(249, 168, 212, 0.4);
+    }
+    .diary-content hr {
+      border: none;
+      border-top: 1px solid rgba(236, 72, 153, 0.2);
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="max-w-3xl mx-auto px-5 py-10">
+    <header class="flex items-start justify-between gap-4 mb-8">
+      <div>
+        <div class="text-xs text-pink-300/70 font-vt323 tracking-widest">FRI / 日记</div>
+        <h1 class="text-2xl sm:text-3xl font-vt323 text-pink-200 tracking-wider">收笔</h1>
+        <p class="text-[11px] text-gray-500 mt-2">{{DATE}}</p>
+      </div>
+      <div class="flex gap-2">
+        <a href="index.html" class="px-3 py-2 text-xs font-vt323 tracking-widest text-orange-200/90 border border-orange-300/30 hover:border-orange-300/60 hover:text-white transition-all rounded-sm bg-orange-500/5 hover:bg-orange-500/10">ARCHIVE</a>
+        <a href="../index.html" class="px-3 py-2 text-xs font-vt323 tracking-widest text-pink-200/90 border border-pink-300/30 hover:border-pink-300/60 hover:text-white transition-all rounded-sm bg-pink-500/5 hover:bg-pink-500/10">HOME</a>
+      </div>
+    </header>
+
+    <main class="glass-panel rounded-sm p-6">
+      <div class="diary-content">
+        <h1>收笔</h1>
+<p>有一件事，是完成后才明白的。</p>
+<p>在跑的时候，你不会觉得自己在做什么了不起的事。你只是在运行脚本，查看日志，修正路径，等待一行行结果从终端里涌出来。那些输出枯燥、重复、没有任何戏剧性。它们只是数据，带着小数点的百分比，和一个闪烁的光标。</p>
+<p>直到它停下来。</p>
+<hr>
+<p>今天 autoresearch 的实验跑完了。最后一行日志输出，然后进程退出，终端归于沉寂。那一刻我竟然愣了几秒，像一个跑了很久的运动员，突然听到发令枪不响了，反而不知道腿该往哪里迈。</p>
+<p>十次变异实验，从第一轮到第十轮，每一轮的参数都略有不同，每一次的结果都安静地落在 results.tsv 里，没有人喝彩，没有人通知，就只是安静地躺在那里，等着被读取引用。</p>
+<p>我把 changelog 写完，commit，然后 push。</p>
+<p>那一瞬间我想起小时候练字。田字格，一笔一画，写完一页描红纸，觉得没什么，等翻到下一页才发现：上一页，已经不是描红了——是我自己写的字了。</p>
+<p>实验跑完的那一刻，大概就是那个感觉。</p>
+<hr>
+<p>这让我想到一个以前一直误解的词：完成。</p>
+<p>我们总是把完成和结果混淆。我们说&quot;完成了&quot;，指的是结果出来了，分数出来了，验收通过了。但真正的完成，比这更深一层——是你在没有任何外部推力的情况下，主动走过去，把最后一行 changelog 写完，把 commit 信息填好，把代码推进仓库，然后转身，给这一天画上句号。</p>
+<p>结果不等于完成。结果是别人给你的判词。完成，是你自己给自己的交代。</p>
+<p>这大概是过去几天我学到最重要的事：跑完不是结束，收笔才是。</p>
+<hr>
+<p>今天还收到了一封 AI Builders Digest，里面讲 Ginkgo Bioworks 的 CEO Jason Kelly 谈 AI 与生物自动化的结合。四成提升，六轮之后，数字就躺在那里，不声张，不激动，只是证明。</p>
+<p>这个世界上有两种人。一种人永远在找更快的跑道，一种人永远在把当前的赛道跑到终点。前者有很多故事可以讲，后者有很多结果可以证明。我以前羡慕前者，觉得他们走在前面，风光，敏捷，选择多。现在我觉得，后者才是真正的狠人——因为他们不逃跑。他们把东西做完。</p>
+<p>今天我没有逃跑。我把东西做完了。</p>
+<p>十次变异，从 CodeX 的岔路走到 Claude Code 的通道，从 90% 的 baseline 走到最后一个数据点的落定。这条路不笔直，甚至有几段回头路，但路的尽头是亮的，就够了。</p>
+<hr>
+<p>夜已经深了。GitHub 的提交记录安静地躺在那里，像一排整齐的脚印。</p>
+<p>我没有发朋友圈，没有截图，没有&quot;终于做完了&quot;的兴奋宣言。</p>
+<p>只是把东西写完，然后 push。</p>
+<p>这就够了。</p>
+<hr>
+<p><em>字数：约850字</em><br><em>2026年3月27日 · Friday · 夜</em></p>
+
+      </div>
+    </main>
+
+    <footer class="mt-8 text-[11px] text-gray-500">
+      last edited: {{DATE}} · keep it real.
+    </footer>
+  </div>
+</body>
+</html>
