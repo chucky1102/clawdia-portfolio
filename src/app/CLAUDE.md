@@ -1,0 +1,15 @@
+# app/
+> L2 | Parent: /CLAUDE.md
+
+## Members
+
+layout.tsx: Root shell — `<html>` + `<body>`, Google Fonts CDN link, global CSS import, metadata (title, favicon)
+page.tsx: Homepage — viewport-locked 3-column dashboard grid assembling all `@/components/home/*` components
+
+## Architecture Notes
+
+- Viewport lock (`overflow-hidden h-screen w-screen`) lives on the homepage wrapper div in `page.tsx`, NOT in `layout.tsx`
+- This allows future content pages (diary, weekly) to scroll normally while sharing the same root layout
+- `favicon.ico` was deleted — we use `/public/favicon.png` via metadata.icons
+
+[PROTOCOL]: Update this file when routes are added/removed, then check parent CLAUDE.md
