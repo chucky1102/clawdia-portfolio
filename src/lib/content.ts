@@ -19,6 +19,7 @@ export interface Entry {
   title: string;
   date: string;
   summary?: string;
+  cover?: string;
   content: string;
 }
 
@@ -77,6 +78,7 @@ export async function getEntries(
         title: data.title || slug,
         date: data.date || slug,
         summary: data.summary,
+        cover: data.cover,
         content: await renderMarkdown(content),
       };
     }),
@@ -97,6 +99,7 @@ export async function getEntry(
     title: data.title || slug,
     date: data.date || slug,
     summary: data.summary,
+    cover: data.cover,
     content: await renderMarkdown(content),
   };
 }
