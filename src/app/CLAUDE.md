@@ -9,6 +9,7 @@ diary/page.tsx: Diary list page — SSG, renders all diary entries via `EntryLis
 diary/[slug]/page.tsx: Single diary entry page — SSG with `generateStaticParams`, renders one entry via `EntryPage`
 weekly/page.tsx: Weekly list page — SSG, renders all weekly entries via `EntryList`
 weekly/[slug]/page.tsx: Single weekly entry page — SSG with `generateStaticParams`, renders one entry via `EntryPage`
+api/chat/route.ts: POST handler — proxies chat messages to Minimax M2.7 with streaming SSE, FRI system prompt
 
 ## Architecture Notes
 

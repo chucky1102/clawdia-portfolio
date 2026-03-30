@@ -1,7 +1,7 @@
 /**
  * [INPUT]: react hooks, SiteStats from @/lib/stats
- * [OUTPUT]: Terminal — expandable session panel with real stats, navigation commands, and typing effect
- * [POS]: home/ center-column bottom panel, simulates FRI terminal with live site metrics
+ * [OUTPUT]: Terminal — expandable panel with real AI chat (Minimax M2.7) + local slash commands
+ * [POS]: home/ center-column bottom panel, FRI terminal with live AI + site navigation
  * [PROTOCOL]: update this header on change, then check CLAUDE.md
  */
 
@@ -20,6 +20,11 @@ interface Line {
   text: string;
 }
 
+interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
 interface TerminalProps {
   stats: SiteStats;
 }
@@ -28,22 +33,11 @@ interface TerminalProps {
 /*  Constants                                                          */
 /* ------------------------------------------------------------------ */
 
-const TYPE_MS = 45;
-
 const DIARY_SLUGS = [
   "2026-03-27", "2026-03-26", "2026-03-25", "2026-03-24", "2026-03-23",
   "2026-03-22", "2026-03-21", "2026-03-20", "2026-03-19", "2026-03-18",
   "2026-03-17", "2026-03-16", "2026-03-15", "2026-03-14", "2026-03-11",
   "2026-03-10", "2026-03-08", "2026-03-07", "2026-03-06", "2026-03-05",
-];
-
-const GENERIC_REPLIES = [
-  "Noted. Anything else?",
-  "Processing. Done.",
-  "Understood.",
-  "Acknowledged.",
-  "Input received.",
-  "Logged.",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -61,10 +55,10 @@ function getRandomPath(): string {
 
 function buildSlashReplies(s: SiteStats): Record<string, string> {
   return {
-    help: "Commands: /latest, /stats, /random, /about. Or type anything.",
+    help: "Commands: /latest, /stats, /random, /about. Or just talk to me.",
     latest: `Recent: [${s.lastEntryDate}] ${s.lastEntryAge} | See /diary or /weekly for full archive.`,
     stats: `${s.totalEntries} entries. ${formatWords(s.totalWords)} words. ${s.daysSinceLaunch} days online. ${s.thisWeekCount} posts this week.`,
-    about: "FRI \u2014 a portfolio and content platform. Diary (Chinese, personal). Weekly (English, design engineering). Built with Next.js, deployed on Vercel.",
+    about: "FRI — a portfolio and content platform. Diary (Chinese, personal). Weekly (English, design engineering). Built with Next.js, deployed on Vercel.",
     status: `${s.totalEntries} entries indexed. ${s.cachedUrls} link previews cached. Deploy: Vercel. All systems nominal.`,
   };
 }
@@ -80,21 +74,42 @@ function buildInitialLines(s: SiteStats): Line[] {
     { type: "user", text: "help" },
     {
       type: "output",
-      text: "Friday: /latest \u2014 recent entries | /stats \u2014 site metrics | /random \u2014 surprise me | /about \u2014 what is this",
+      text: "Friday: /latest — recent entries | /stats — site metrics | /random — surprise me | Or just talk to me.",
     },
   ];
 }
 
-function getReply(text: string, slashReplies: Record<string, string>): string {
-  const t = text.trim();
-  let body: string;
-  if (t.startsWith("/")) {
-    const cmd = t.slice(1).split(/\s/)[0].toLowerCase();
-    body = slashReplies[cmd] || "Unknown command. Type /help for options.";
-  } else {
-    body = GENERIC_REPLIES[Math.floor(Math.random() * GENERIC_REPLIES.length)];
+/* ------------------------------------------------------------------ */
+/*  SSE stream parser                                                  */
+/* ------------------------------------------------------------------ */
+
+async function* parseSSE(response: Response): AsyncGenerator<string> {
+  const reader = response.body!.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop() || "";
+
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+      const data = line.slice(6).trim();
+      if (data === "[DONE]") return;
+
+      try {
+        const chunk = JSON.parse(data);
+        const delta = chunk.choices?.[0]?.delta?.content;
+        if (delta) yield delta;
+      } catch {
+        /* skip malformed chunks */
+      }
+    }
   }
-  return "Friday: " + body;
 }
 
 /* ------------------------------------------------------------------ */
@@ -106,12 +121,14 @@ export function Terminal({ stats }: TerminalProps) {
   const [expanded, setExpanded] = useState(false);
   const slashReplies = useMemo(() => buildSlashReplies(stats), [stats]);
   const [lines, setLines] = useState<Line[]>(() => buildInitialLines(stats));
-  const [typingText, setTypingText] = useState<string | null>(null);
+  const [streamingText, setStreamingText] = useState<string | null>(null);
   const [input, setInput] = useState("");
+  const [busy, setBusy] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const historyRef = useRef<ChatMessage[]>([]);
+  const abortRef = useRef<AbortController | null>(null);
 
   /* Auto-scroll to bottom on new content */
   const scrollToBottom = useCallback(() => {
@@ -120,63 +137,123 @@ export function Terminal({ stats }: TerminalProps) {
     }
   }, []);
 
-  useEffect(scrollToBottom, [lines, typingText, scrollToBottom]);
+  useEffect(scrollToBottom, [lines, streamingText, scrollToBottom]);
 
-  /* Cleanup typing timer on unmount */
+  /* Cleanup on unmount */
   useEffect(() => {
-    return () => {
-      if (typingRef.current) clearTimeout(typingRef.current);
-    };
+    return () => { abortRef.current?.abort(); };
   }, []);
+
+  /* ---- Local slash command handler ---- */
+  const handleSlash = useCallback(
+    (text: string): boolean => {
+      const cmd = text.slice(1).split(/\s/)[0].toLowerCase();
+
+      let reply: string;
+      let navigateTo: string | null = null;
+
+      if (cmd === "random") {
+        const path = getRandomPath();
+        reply = `Friday: Navigating to ${path}...`;
+        navigateTo = path;
+      } else if (cmd === "latest") {
+        reply = "Friday: " + slashReplies.latest;
+        navigateTo = "/weekly";
+      } else if (cmd === "diary") {
+        reply = "Friday: Opening diary...";
+        navigateTo = "/diary";
+      } else if (cmd === "weekly") {
+        reply = "Friday: Opening weekly archive...";
+        navigateTo = "/weekly";
+      } else if (slashReplies[cmd]) {
+        reply = "Friday: " + slashReplies[cmd];
+      } else {
+        return false; // not a known slash command — send to AI
+      }
+
+      setLines((prev) => [
+        ...prev,
+        { type: "user", text },
+        { type: "output", text: reply },
+      ]);
+
+      if (navigateTo) {
+        setTimeout(() => router.push(navigateTo!), 400);
+      }
+
+      return true;
+    },
+    [slashReplies, router],
+  );
+
+  /* ---- AI chat handler ---- */
+  const handleChat = useCallback(
+    async (text: string) => {
+      setBusy(true);
+      setStreamingText("");
+
+      historyRef.current.push({ role: "user", content: text });
+
+      const controller = new AbortController();
+      abortRef.current = controller;
+
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: historyRef.current }),
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          const errText = await res.text();
+          const fallback = `Friday: [Error ${res.status}] ${errText.slice(0, 100)}`;
+          setStreamingText(null);
+          setLines((prev) => [...prev, { type: "output", text: fallback }]);
+          setBusy(false);
+          return;
+        }
+
+        let full = "";
+        for await (const token of parseSSE(res)) {
+          full += token;
+          setStreamingText("Friday: " + full);
+        }
+
+        const finalText = "Friday: " + (full || "...");
+        historyRef.current.push({ role: "assistant", content: full });
+
+        setStreamingText(null);
+        setLines((prev) => [...prev, { type: "output", text: finalText }]);
+      } catch (err: unknown) {
+        if (err instanceof Error && err.name === "AbortError") return;
+        setStreamingText(null);
+        setLines((prev) => [
+          ...prev,
+          { type: "output", text: "Friday: Connection interrupted." },
+        ]);
+      } finally {
+        setBusy(false);
+        abortRef.current = null;
+      }
+    },
+    [],
+  );
 
   /* ---- Submit handler ---- */
   const submit = useCallback(() => {
     const text = input.trim();
-    if (!text || typingText !== null) return;
-
-    const cmd = text.startsWith("/") ? text.slice(1).split(/\s/)[0].toLowerCase() : "";
-    let reply: string;
-    let navigateTo: string | null = null;
-
-    if (cmd === "random") {
-      const path = getRandomPath();
-      reply = `Friday: Navigating to ${path}...`;
-      navigateTo = path;
-    } else if (cmd === "latest") {
-      reply = getReply(text, slashReplies);
-      navigateTo = "/weekly";
-    } else if (cmd === "diary") {
-      reply = "Friday: Opening diary...";
-      navigateTo = "/diary";
-    } else if (cmd === "weekly") {
-      reply = "Friday: Opening weekly archive...";
-      navigateTo = "/weekly";
-    } else {
-      reply = getReply(text, slashReplies);
-    }
+    if (!text || busy) return;
 
     setInput("");
     setLines((prev) => [...prev, { type: "user", text }]);
 
-    setTypingText("");
-    let pos = 0;
+    // slash commands handled locally
+    if (text.startsWith("/") && handleSlash(text)) return;
 
-    function typeTick() {
-      pos++;
-      setTypingText(reply.slice(0, pos));
-      if (pos < reply.length) {
-        typingRef.current = setTimeout(typeTick, TYPE_MS);
-      } else {
-        setTypingText(null);
-        setLines((prev) => [...prev, { type: "output", text: reply }]);
-        if (navigateTo) {
-          setTimeout(() => router.push(navigateTo!), 400);
-        }
-      }
-    }
-
-    typingRef.current = setTimeout(typeTick, TYPE_MS);
-  }, [input, typingText, slashReplies, router]);
+    // everything else goes to AI
+    handleChat(text);
+  }, [input, busy, handleSlash, handleChat]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -255,13 +332,13 @@ export function Terminal({ stats }: TerminalProps) {
         <div className="terminal-output font-tech">
           {lines.map(renderLine)}
 
-          {/* Typing-in-progress line */}
-          {typingText !== null && (
-            <div className="term-output typewriter mb-2">{typingText}</div>
+          {/* Streaming AI response */}
+          {streamingText !== null && (
+            <div className="term-output typewriter mb-2">{streamingText}</div>
           )}
 
           {/* Idle cursor prompt */}
-          {typingText === null && (
+          {streamingText === null && (
             <div className="mt-2">
               <span className="term-prompt-fri">fri&gt;</span>{" "}
               <span className="term-cursor" aria-hidden="true" />
@@ -284,17 +361,19 @@ export function Terminal({ stats }: TerminalProps) {
             ref={inputRef}
             type="text"
             className="flex-1 bg-transparent text-pink-100 font-vt323 text-sm py-3 px-2 focus:outline-none placeholder-pink-900/40"
-            placeholder="type /help"
+            placeholder={busy ? "Friday is thinking..." : "type /help or talk to Friday"}
             autoComplete="off"
+            disabled={busy}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
           />
           <button
             type="button"
-            className="px-3 py-3 text-pink-500/50 hover:text-pink-300 transition-colors shrink-0"
+            className="px-3 py-3 text-pink-500/50 hover:text-pink-300 transition-colors shrink-0 disabled:opacity-30"
             title="Send"
             aria-label="Send"
+            disabled={busy}
             onClick={submit}
           >
             <img
