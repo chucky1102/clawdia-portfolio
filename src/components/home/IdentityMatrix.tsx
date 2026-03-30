@@ -43,7 +43,7 @@ export function IdentityMatrix({ diaryCount, weeklyCount, lastEntryAge }: Identi
   ];
   return (
     <TechBorder className="p-5">
-      <h2 className="text-lg font-bold font-vt323 text-pink-400 mb-5 flex items-center gap-2">
+      <h2 className="text-xs font-vt323 text-pink-400 mb-4 flex items-center gap-2 tracking-widest">
         <img
           src="https://unpkg.com/pixelarticons@1.8.1/svg/server.svg"
           className="pa-icon w-4 h-4 inline-block"
