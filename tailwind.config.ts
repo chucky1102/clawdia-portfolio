@@ -22,7 +22,7 @@ const config: Config = {
       fontFamily: {
         tech: ["'Geist'", "monospace"],
         workbench: ["'Geist'", "sans-serif"],
-        vt323: ["'Geist Mono'", "monospace"],
+        vt323: ["'Geist Pixel Square'", "monospace"],
         suse: ["'Geist'", "sans-serif"],
       },
     },
