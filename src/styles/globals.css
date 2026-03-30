@@ -263,6 +263,11 @@
 
   /* placeholder */
   & .placeholder-pink-900\/40::placeholder { color: rgba(131, 24, 67, 0.3); }
+
+  /* @theme color overrides — these are compiled-in so we override the utilities directly */
+  & .hover\:bg-glass-bg:hover { background-color: rgba(219, 39, 119, 0.06) !important; }
+  & .hover\:border-glass-border:hover { border-color: rgba(219, 39, 119, 0.2) !important; }
+  & .bg-bg-dark { background-color: #fafafa !important; }
 }
 
 /* --------------------------------------------------------------------------
