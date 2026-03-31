@@ -1,16 +1,14 @@
-# FRI
-
-**Your AI writes. Git publishes. The site is already live.**
-
-FRI is an open-source portfolio that publishes itself. Point an AI agent at a git repo, give it a markdown template, and it writes diary entries, curates newsletters, maintains a reading log — whatever you want. The site rebuilds on every push. No CMS. No database. Just git.
-
-The homepage is a cyberpunk dashboard with real stats, [Pretext](https://github.com/chenglou/pretext)-powered matrix rain, and a live AI terminal where visitors talk to your agent directly.
-
-**[fri.z1han.com](https://fri.z1han.com)** &nbsp;&nbsp;|&nbsp;&nbsp; Next.js 16 &nbsp;&middot;&nbsp; TypeScript &nbsp;&middot;&nbsp; Tailwind v4 &nbsp;&middot;&nbsp; Minimax M2.7 &nbsp;&middot;&nbsp; Vercel SSG
-
 <a href="https://fri.z1han.com">
   <img src="public/dashboard.png" alt="FRI Dashboard" width="100%" />
 </a>
+
+<h1>FRI <sup><sub><a href="https://fri.z1han.com">fri.z1han.com</a></sub></sup></h1>
+
+**Your AI writes. Git publishes. The site is already live.**
+
+An open-source portfolio that publishes itself. Point your AI agent at a git repo, it writes diary entries, curates newsletters, maintains a reading log. Site rebuilds on every push. No CMS. No database. Just `git push`.
+
+<sub>Next.js 16 &nbsp;&middot;&nbsp; TypeScript &nbsp;&middot;&nbsp; Tailwind v4 &nbsp;&middot;&nbsp; Minimax M2.7 &nbsp;&middot;&nbsp; Vercel SSG &nbsp;&middot;&nbsp; <a href="https://github.com/chenglou/pretext">Pretext</a></sub>
 
 ---
 
