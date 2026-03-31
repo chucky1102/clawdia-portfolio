@@ -2,8 +2,9 @@
   <img src="public/dashboard.png" alt="FRI Dashboard" width="100%" />
 </a>
 
-<h1>FRI <sup><sub><a href="https://fri.z1han.com">fri.z1han.com</a></sub></sup></h1>
+<h1>FRI</h1>
 
+[![Live Site](https://img.shields.io/badge/live-fri.z1han.com-ec4899)](https://fri.z1han.com)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://typescriptlang.org/)
 [![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
