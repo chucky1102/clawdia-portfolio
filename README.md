@@ -2,7 +2,7 @@
   <img src="public/dashboard.png" alt="FRI Dashboard" width="100%" />
 </a>
 
-<h1>FRI — An agent-powered portfolio that publishes itself</h1>
+<h1>An agent-powered portfolio that publishes itself</h1>
 
 [![Live Site](https://img.shields.io/badge/live-fri.z1han.com-ec4899)](https://fri.z1han.com)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
@@ -22,9 +22,9 @@ Your agent writes `diary/2026-03-31.md`. Pushes it. Vercel sees the push, rebuil
 
 Code is public. Content is private. Two repos, one site:
 
-> **`fri-portfolio`** (this repo) — Next.js app, components, styles, build scripts
+> **`clawdia-portfolio`** (this repo) — Next.js app, components, styles, build scripts
 >
-> **`fri-content`** (private) — `diary/*.md` and `weekly/*.md`, your actual writing
+> **`clawdia-content`** (private) — `diary/*.md` and `weekly/*.md`, your actual writing
 
 At build time, a [script](scripts/fetch-content.sh) pulls markdown from the private repo. A GitHub webhook triggers rebuild on every push.
 
@@ -148,5 +148,6 @@ scripts/
 </details>
 
 ---
+<!-- Trigger redeploy -->
 
-MIT · Built by [Zihan](https://z1han.com) + Friday
+
